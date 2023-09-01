@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+  .center {
+    display: flex;
+    justify-content: center;
+  }
+</style>
+<body>
+<!-- service section -->
+<section class="service_section layout_padding mt-3">
+  <div class="container">
+    <div class="heading_container">
+      <h2 class="mb-3">
+        Movie
+      </h2>
+      <div class="row">
+        <div class="col-md-6 col-lg-3" th:each="vo:${list}">
+          <div class="box">
+            <div class="img-box">
+              <img th:src="${vo.poster}">
+            </div>
+            <div class="detail-box">
+              <h5 th:text="${vo.title}" style="height: 50px;">
+              </h5>
+              <p>
+                <i class="fa-solid fa-star" style="color: #ffff0a;"></i>
+                <span th:text="${vo.IMDB_Score}"></span>
+              </p>
+              <p>
+                <span th:text="${vo.genre}" style="height: 30px;"></span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row center mt-5">
+
+
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item" th:if="${startPage>1}">
+            <a class="page-link" th:href="@{/movie/movie_list(page=${startPage -1})}" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li th:class="${curpage==i}?'page-item active':'page-item'" th:each="i:${#numbers.sequence(startPage,endPage)}">
+            <a class="page-link" th:href="@{/movie/movie_list(page=${i})}" th:text="${i}">1</a>
+          </li>
+          <li class="page-item" th:if="${endPage<totalpage}">
+            <a class="page-link" th:href="@{/movie/movie_list(page=${endPage+1})}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
